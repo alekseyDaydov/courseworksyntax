@@ -47,8 +47,19 @@ public class Employee {
         return salary;
     }
 
-    public void setDepartment(int department) {
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setDepartment(int department) {
         this.department = department;
     }
 

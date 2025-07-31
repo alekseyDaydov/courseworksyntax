@@ -4,30 +4,17 @@ public class EmployeeBook {
     public Employee employee;
     private final Employee[] employees = new Employee[10];
 
-    public boolean addEmployee(String firsName, String middleName, String lastName, int department, double salary) {
-        boolean isEmpty = false;
-        int i = 0;
-        while ( i < employees.length)  {
-           if (isExistEmployee(employee) && isEmpty) {}
-            else {
-                employees[i] = new Employee(firsName, middleName, lastName, department, salary);
-                isEmpty = true;
-            }
-        }
-        return isEmpty;
+
+    public boolean isExistDepartment(int department) {
+        return department < 1 || department > 5;
     }
 
-    public boolean deleteEmployee(int id) {
-        boolean isEmpty = true;
-        for (int i = 0; i < employees.length; i++) {
-            if (isExistEmployee(employees[i]) && employees[i].getId() == id) {
-                employees[i] = null;
-                isEmpty = false;
-            }
-        }
-        return isEmpty;
+    public boolean isExistEmployee(Employee employee) {
+        return employee != null;
     }
 
+
+    //------->базовая сложность методы
     public void printEmployees() {
         System.out.println(Arrays.toString(employees));
     }
@@ -88,14 +75,7 @@ public class EmployeeBook {
         }
     }
 
-    public static boolean isExistDepartment(int department) {
-        return department < 1 || department > 5;
-    }
-
-    public boolean isExistEmployee(Employee employee) {
-        return employee != null;
-    }
-
+    // повышенная сложность
     public void indexSalary(double percent) {
         for (Employee employee : employees) {
             if (isExistEmployee(employee)) {
@@ -165,7 +145,7 @@ public class EmployeeBook {
             }
         }
         if (count == 0) {
-            throw new IllegalArgumentException("Нельзя посчитать среднюю зарплату! Нет сотрудников в комании!");
+            throw new IllegalArgumentException("Нельзя посчитать среднюю зарплату! Нет сотрудников в отделе!");
         }
         return salaryEmployees / count;
     }
@@ -194,17 +174,10 @@ public class EmployeeBook {
         }
     }
 
-    public void printEmployee() {
-        System.out.println("id " + employee.getId() + " Фамилия " + employee.getLastName() +
-                " Имя " + employee.getFirstName() + " Отчество " + employee.getMiddleName() +
-                " Заплата " + employee.getSalary());
-
-    }
-
     public void getMinSalaryByNumber(double minSalary) {
         for (Employee employee : employees) {
             if (isExistEmployee(employee) && employee.getSalary() < minSalary) {
-                printEmployee();
+                printEmployee(employee);
             }
         }
     }
@@ -212,8 +185,48 @@ public class EmployeeBook {
     public void getMaxSalaryByNumber(double maxSalary) {
         for (Employee employee : employees) {
             if (isExistEmployee(employee) && employee.getSalary() > maxSalary) {
-                printEmployee();
+                printEmployee(employee);
             }
         }
+    }
+
+    public void printEmployee(Employee empl) {
+        if (isExistEmployee(empl)) {
+            System.out.println("id " + empl.getId() + " Фамилия " + empl.getLastName() +
+                    " Имя " + empl.getFirstName() + " Отчество " + empl.getMiddleName() +
+                    " Заплата " + empl.getSalary());
+        }
+    }
+
+//    Очень сложно
+
+    public boolean addEmployee(String firsName, String middleName, String lastName, int department, double salary) {
+        boolean isEmpty = false;
+        for (int i = 0; i < employees.length && !isEmpty; i++) {
+            if (!isExistEmployee(employees[i])) {
+                employees[i] = new Employee(firsName, middleName, lastName, department, salary);
+                isEmpty = true;
+            }
+        }
+        return isEmpty;
+    }
+
+    public boolean deleteEmployee(int id) {
+        for (int i = 0; i < employees.length; i++) {
+            if (isExistEmployee(employees[i]) && employees[i].getId() == id) {
+                employees[i] = null;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Employee getIdEmployee(int id) {
+        for (Employee employeeId : employees) {
+            if (isExistEmployee(employeeId) && employeeId.getId() == id) {
+                return employeeId;
+            }
+        }
+        return null;
     }
 }

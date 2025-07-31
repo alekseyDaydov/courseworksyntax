@@ -15,6 +15,9 @@ public class Employee {
     }
 
     public Employee(String firstName, String middleName, String lastName, int department, double salary) {
+        if (firstName == null || middleName == null || lastName == null || department < -1 || salary < 0) {
+            throw new IllegalArgumentException("Поле обязательно для заполнения");
+        }
         id = incrementId();
         this.firstName = firstName;
         this.middleName = middleName;
@@ -48,22 +51,37 @@ public class Employee {
     }
 
     public void setFirstName(String firstName) {
+        if (firstName == null) {
+            throw new IllegalArgumentException("Поле не может быть пустым");
+        }
         this.firstName = firstName;
     }
 
     public void setMiddleName(String middleName) {
+        if (middleName == null) {
+            throw new IllegalArgumentException("Поле не может быть пустым");
+        }
         this.middleName = middleName;
     }
 
     public void setLastName(String lastName) {
+        if (lastName == null) {
+            throw new IllegalArgumentException("Поле не может быть пустым");
+        }
         this.lastName = lastName;
     }
 
     public void setDepartment(int department) {
+        if (department < 0) {
+            throw new IllegalArgumentException("Поле не может быть пустым");
+        }
         this.department = department;
     }
 
     public void setSalary(double salary) {
+        if (salary < 0) {
+            throw new IllegalArgumentException("Поле не может быть пустым");
+        }
         this.salary = salary;
     }
 

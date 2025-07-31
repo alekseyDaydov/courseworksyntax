@@ -198,8 +198,7 @@ public class EmployeeBook {
         }
     }
 
-//    Очень сложно
-
+    //    Очень сложно
     public boolean addEmployee(String firsName, String middleName, String lastName, int department, double salary) {
         boolean isEmpty = false;
         for (int i = 0; i < employees.length && !isEmpty; i++) {
